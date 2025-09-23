@@ -1,0 +1,71 @@
+//let crescentMoon;
+
+function setup() {
+  createCanvas(400, 400);
+// drawCrescentMoon=createCrescentMoon();
+//ellipseMode(RADIUS);
+  
+}
+
+function draw() {
+  background("#2196F3");
+ // drawCrescentMoon(crescentMoon)
+
+//rectangle to cover half of canvas
+fill ("#002366")
+rect (0,0, width/2, height);
+
+// grey rectangle for road
+fill ("#616569")
+rect (0,350,400,50);
+
+// cresent moon in top left corner
+//createCrescentMoon (50, 50);
+  
+// sun in top right corner
+drawSun (300, 70);
+}
+
+function createCrescentMoon () {
+//let moon=();
+moon,c= ("#fafac5")
+moon,x=x;
+moon,y=y
+moon,r=r
+return moon
+//background color circle to cut out shape
+fill ('#002366')
+ellipse (x+20,y,70,70);
+      
+}
+function drawCrescentMoon(){
+
+
+}
+
+
+function drawSun (x,y) {
+fill(255,255,0)
+noStroke()
+circle(x,y,50)
+  
+let numRays= 12;
+let radius= 25;
+let rayLength= 20;
+  
+push();
+translate(x,y);
+  
+for (let i= 0; i < numRays;i++){
+let angle = TWO_PI / numRays * i;
+
+let x1 = cos (angle) * radius;
+let y1 = sin(angle) * radius;
+let x2 = cos(angle) * (radius + rayLength);
+let y2 = sin(angle) * (radius + rayLength);
+  
+triangle(x1,y1,x2,y2,x1+5* cos(angle + HALF_PI), y1 + 5* sin(angle + HALF_PI)) 
+}
+
+pop();
+}
