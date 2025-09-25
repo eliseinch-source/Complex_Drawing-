@@ -1,0 +1,33 @@
+let ball1, ball2, ball3;
+
+let SPEED=3;
+
+function setup() {
+  createCanvas(600, 500);
+  ellipseMode(RADIUS)
+  resetAllBalls()
+}
+
+function draw() {
+  background(350);
+  drawBall(ball1);
+  keepInBounds(ball1);
+  updateBall(ball1);
+  drawBall(ball2);
+  updateBall(ball2);
+  keepInBounds(ball2);
+  drawBall(ball3);
+  updateBall(ball3);
+  keepInBounds(ball3);
+  bounceBalls(ball1,ball2);
+  bounceBalls(ball2,ball3);
+  bounceBalls(ball1,ball3);
+}
+
+function bounceBalls(ballA,ballB){
+if(dist(ballA.x,ballA.y,ballB.x,ballB.y))
+  
+}
+
+function keepInBounds(ball) {
+//ball.x+ball.r>width,then we are off the screen//right
