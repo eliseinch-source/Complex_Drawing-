@@ -1,0 +1,22 @@
+let numberOfSquares=20;
+let squares=[]
+
+
+function setup() {
+createCanvas(400, 400);
+ellipseMode(RADIUS)
+  
+while(squares.length<numberOfSquares){
+  squares.push(
+width/2+100*cos((TWO_PI/numberOfSquares)*squares.length))
+}
+}
+
+function draw() {
+  background(220);
+  noFill()
+  circle(width/2,height/2,100)
+  for(let s of squares){
+  square(s.x,s.y,10)
+  }
+}
