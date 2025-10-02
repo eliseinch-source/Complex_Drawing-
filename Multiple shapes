@@ -5,6 +5,7 @@ let squares=[]
 function setup() {
 createCanvas(400, 400);
 ellipseMode(RADIUS)
+angleMode(RADIANS)//radians for trigonometric functions
   
 while(squares.length<numberOfSquares){
  let theta =(TWO_PI/numberOfSquares)*squares.length
@@ -18,13 +19,33 @@ while(squares.length<numberOfSquares){
 }
 //width/2+100*cos((TWO_PI/numberOfSquares)*squares.length)
 function draw() {
-  background("#purple");
+  background(220);
   noFill()
-  circle(width/2,height/2,130)
+  circle(width/2,height/2,130);
+
   for(let s of squares){
-  square(s.x,s.y,10)
-  s.r +=random (-3,3)
-  s.x=width/2 + s.r * cos(s.theta)
-  s.y=height/2 + s.r * sin(s.theta)
+  //square(s.x,s.y,10)
+  //s.r +=random (-3,3)
+  //s.x=width/2 + s.r * cos(s.theta)
+  //s.y=height/2 + s.r * sin(s.theta)
+  
+  push();//original shape kept
+  
+  translate(s.x,s.y);//new
+  
+  rotate(s.theta);//wings added to face outward
+  
+  fill(255);//cirlces for the moving objects
+  noStroke();
+  circle(0,0,10);
+  
+  arc(-10,0,20,20, PI+QUARTER_PI,TWO_PI-QUARTER_PI );//left wing
+  arc(10,0,20,20, QUARTER_PI, PI-QUARTER_PI);//right wing
+  
+  pop();
+  
+  s.r +=random(-5,5);
+  s.x =width/2+s.r*cos(s.theta);
+  s.y =height/2+s.r*sin(s.theta);
   }
 }
