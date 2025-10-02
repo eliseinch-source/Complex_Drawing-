@@ -7,16 +7,24 @@ createCanvas(400, 400);
 ellipseMode(RADIUS)
   
 while(squares.length<numberOfSquares){
-  squares.push(
-width/2+100*cos((TWO_PI/numberOfSquares)*squares.length))
+ let theta =(TWO_PI/numberOfSquares)*squares.length
+  squares.push({
+    x:width/2+100*cos(theta),
+    y:height/2+100*sin(theta),
+    theta:theta,
+    r:100
+  })
 }
 }
-
+//width/2+100*cos((TWO_PI/numberOfSquares)*squares.length)
 function draw() {
-  background(220);
+  background("#purple");
   noFill()
-  circle(width/2,height/2,100)
+  circle(width/2,height/2,130)
   for(let s of squares){
   square(s.x,s.y,10)
+  s.r +=random (-3,3)
+  s.x=width/2 + s.r * cos(s.theta)
+  s.y=height/2 + s.r * sin(s.theta)
   }
 }
