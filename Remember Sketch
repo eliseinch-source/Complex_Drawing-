@@ -1,1 +1,46 @@
+let numberOfSquares=20;
+let squares=[]
 
+function setup() {
+  createCanvas(400, 400);
+  ellipseMode(RADIUS)
+  angleMode(RADIANS)
+  
+  
+  while(squares.length<numberOfSquares){
+    let theta=(TWO_PI/numberOfSquares)*squares.length
+    squares.push({
+      x: width/2+100*cos(theta),
+      y:height/2+100*sin(theta),
+      theta:theta,
+      r:100
+    })
+  }
+}
+
+function draw() {
+  background(220);
+  noFill();
+  circle(width/2,height/2,130);
+  
+  
+  for(let s of squares){
+    s.x=mouseX + s.r* cos(s.theta);
+    s.y=mouseY + s.r* sin(s.theta);
+    
+    
+    push();
+    translate(s.x, s.y);
+    rotate(s.theta);
+    fill(255);
+    noStroke();
+    circle(0,0,10);
+    arc(-10,0,20,20, PI+QUARTER_PI, TWO_PI-QUARTER_PI);
+    arc(10,0,20,20, QUARTER_PI,PI-QUARTER_PI);
+    pop();
+    
+    s.r+=random(-5,5);
+    
+    s.theta+= 0.05;
+  }
+}
