@@ -11,7 +11,7 @@ function setup() {
 function draw() {
   background(0);
   
-for(let j=i-1; i>=0;i--){
+for(let i=balls.length-1;i>=0;i--){
   let ball=balls[i];
   updateBall(ball);
   drawBall(ball);
