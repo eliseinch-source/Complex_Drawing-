@@ -1,79 +1,82 @@
-let ball1, ball2, ball3;
+let balls =[];
 
-let SPEED=5;
+const SPEED=5;
 
 
 function setup() {
-  createCanvas(500, 500);
-  ellipseMode(RADIUS);
-  resetAllBalls()
+  createCanvas(600, 400);
+  resetAllBalls();
 }
 
 function draw() {
-  background(220);
-  drawBall(ball1);
-  updateBall(ball1);
-  keepInBounds(ball1);
-  drawBall(ball2);
-  updateBall(ball2);
-  keepInBounds(ball2);
-  drawBall(ball3);
-  updateBall(ball3);
-  keepInBounds(ball3);
-  bounceBalls(ball1,ball2);
-  bounceBalls(ball2,ball3);
-  bounceBalls(ball1,ball3);
+  background(0);
   
+for(let j=i-1; i>=0;i--){
+  let ball=balls[i];
+  updateBall(ball);
+  drawBall(ball);
+  
+  for(let j=i-1; j>=0; j--){
+    let other=balls[j];
+    if(checkCollision(ball, other)){
+      splitBall(ball,i);
+      splitBall(other,j);
+      break;
+    }
+  }
 }
-function bounceBalls(ballA,ballB){
-  if (dist(ballA.x,ballA.y,ballB.x,ballB.y) <= ballA.radius + ballB.radius ){
-    ballA.dx=ballA.dx *-1;
-    ballA.dy=ballA.dy *-1;
-    ballB.dx=ballB.dx *-1;
-    ballB.dy=ballB.dy *-1;
-  }  
 }
-function keepInBounds(ball){
-if(ball.x+ball.radius>width);{
-ball.dx=ball.dx*-1;
-}
-if(ball.y+ball.radius>height);{
-ball.dy=ball.dy*-1;
-}
-if(ball.x-ball.radius<0);{
-ball.dx=ball.dx*-1;
-}
-if(ball.y-ball.radius<0);{
-ball.dy=ball.dy*-1
-}
+function checkCollision(ball1,ball2){
+  let distance=dist(ball1.x,ball1.y,ball2.x,ball2.y);
+  return distance <ball1.radius+ball2.radius
 }
 
-function resetAllBalls(){
-ball1=createBall()
-ball2=createBall()
-ball3=createBall()
-function mouseClicked(){
-resetAllBalls()
-}
+function splitBall(ball,index){
+  if (ball.radius> 10){
+    balls.splice(index,1);
 
+let smallerRadius=ball.radius* 0.7;
+    balls.push(createBall(ball.x, ball.y, smallerRadius,-ball.dx, -ball.dy));
+    balls.push(createBall(ball.x,ball.y,smallerRadius,ball.dx,ball.dy));
+  }else{
+    balls.splice(index,1);
+  }
+}
+  
+  function resetAllBalls(){
+    balls=[];
+    balls.push(createBall());
+    balls.push(createBall());
+    balls.push(createBall());
+  }
+
+function mouseClicked() {
+  resetAllBalls();
+}
 function updateBall(ball){
 ball.y=ball.y+ball.dy;
-ball.x=ball.x+ball.dx;
+  ball.x=ball.x+ball.dx
+  
+  if(ball.x+ball.radius>width|| ball.x-ball.radius<0){
+    ball.dx=ball.dx*-1;
+  }
+  if (ball.y+ball.radius> height||ball.y-ball.radius<0){
+    ball.dy=ball.dy*-1;
+  }
 }
 
 function drawBall(ball){
 fill(ball.c);
-circle(ball.x,ball.y,ball.radius);
+circle(ball.x,ball.y,ball.radius*2);
 }
 
-function createBall(){
-let ball={}
-ball.c=color(random(256),random(256),random(256));
-ball.radius=random(20,60);
-ball.x=random(ball.radius,width-ball.radius);
-ball.y=random(ball.radius,height-ball.radius);
-ball.dx=random(-SPEED,SPEED);
-ball.dy=random(-SPEED,SPEED);
-ball.radius=random(20,60);
-return ball;
+function createBall(x=null,y=null,radius=null,dx=null,dy=null){
+let ball={};
+  ball.c=color(random(256),random(256),random(256));
+  ball.radius=radius||random(20,60);
+  ball.x=x||random(ball.radius,width-ball.radius);
+  ball.y=y||random(ball.radius,height-ball.radius);
+  ball.dx=dx||random(-SPEED,SPEED);
+  ball.dy=dy||random(-SPEED,SPEED);
+  return ball;
 }
