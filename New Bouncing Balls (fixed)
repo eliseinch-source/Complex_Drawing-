@@ -31,6 +31,49 @@ function bounceBalls(ballA,ballB){
     ballA.dy=ballA.dy *-1;
     ballB.dx=ballB.dx *-1;
     ballB.dy=ballB.dy *-1;
-  }
-  
+  }  
+}
+function keepInBounds(ball){
+if(ball.x+ball.radius>width);{
+ball.dx=ball.dx*-1;
+}
+if(ball.y+ball.radius>height);{
+ball.dy=ball.dy*-1;
+}
+if(ball.x-ball.radius<0);{
+ball.dx=ball.dx*-1;
+}
+if(ball.y-ball.radius<0);{
+ball.dy=ball.dy*-1
+}
+}
+
+function resetAllBalls(){
+ball1=createBall()
+ball2=createBall()
+ball3=createBall()
+function mouseClicked(){
+resetAllBalls()
+}
+
+function updateBall(ball){
+ball.y=ball.y+ball.dy;
+ball.x=ball.x+ball.dx;
+}
+
+function drawBall(ball){
+fill(ball.c);
+circle(ball.x,ball.y,ball.radius);
+}
+
+function createBall(){
+let ball={}
+ball.c=color(random(256),random(256),random(256));
+ball.radius=random(20,60);
+ball.x=random(ball.radius,width-ball.radius);
+ball.y=random(ball.radius,height-ball.radius);
+ball.dx=random(-SPEED,SPEED);
+ball.dy=random(-SPEED,SPEED);
+ball.radius=random(20,60);
+return ball;
 }
