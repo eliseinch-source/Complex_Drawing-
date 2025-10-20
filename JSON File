@@ -20,3 +20,20 @@ function draw() {
     if(mouseTrail.length>maxTrailLength){
       mouseTrail.shift();
     }
+}
+  
+stroke(255,100);
+noFill();
+beginShape();
+for(let i=0; i<mouseTrail.length; i++){
+  let alpha=map(i,0,mouseTrail.length,0,255);
+  stroke(255,alpha);
+  vertex(mouseTrail[i].x,mouseTrail[i].y);
+}  
+  endShape();
+  
+for(let s of squares){
+  if (!frozen){
+    s.x=mouseX + s.r* cos(s.theta);
+    s.y=mouseY + s.r* sin(s.theta);
+    s.r += random(-1,1);
