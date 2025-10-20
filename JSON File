@@ -1,0 +1,22 @@
+let mouseTrail=[];
+let permanentMouseTrail = [];
+let maxTrailLength=50;
+let squares=[];
+let maxSquares=20;
+let frozen=false;
+
+function setup() {
+  createCanvas(windowWidth,windowHeight);
+  resetSquares();
+}
+
+function draw() {
+  background(0);
+  
+  if(!frozen){
+    let pos = {x:mouseX, y:mouseY};
+    mouseTrail.push(pos);
+    permanentMouseTrail.push(pos);
+    if(mouseTrail.length>maxTrailLength){
+      mouseTrail.shift();
+    }
